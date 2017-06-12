@@ -3,7 +3,7 @@ package com.seckill.mode;
 import java.util.Date;
 
 /**
- * Created by huangyichun on 2017/6/12.
+ * 秒杀成功实体类
  */
 public class SuccessKilled {
 
