@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MySQL - @localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.2">
+    <root id="1"/>
+    <schema id="2" parent="1" name="bookstore">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="forum"/>
+    <schema id="4" parent="1" name="hibernate"/>
+    <schema id="5" parent="1" name="hibernate1"/>
+    <schema id="6" parent="1" name="hibernate2"/>
+    <schema id="7" parent="1" name="hibernate3"/>
+    <schema id="8" parent="1" name="information_schema"/>
+    <schema id="9" parent="1" name="mysql"/>
+    <schema id="10" parent="1" name="new_scu_spider"/>
+    <schema id="11" parent="1" name="performance_schema"/>
+    <schema id="12" parent="1" name="scu_news_notice"/>
+    <schema id="13" parent="1" name="springdemo"/>
+    <schema id="14" parent="1" name="spring_test"/>
+    <schema id="15" parent="1" name="test"/>
+    <table id="16" parent="2" name="account"/>
+    <table id="17" parent="2" name="mybooks"/>
+    <table id="18" parent="2" name="trade"/>
+    <table id="19" parent="2" name="tradeitem"/>
+    <table id="20" parent="2" name="userinfo"/>
+    <column id="21" parent="16" name="accountid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="22" parent="16" name="balance">
+      <Position>2</Position>
+      <DataType>float|0</DataType>
+    </column>
+    <key id="23" parent="16" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>accountid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="24" parent="17" name="Id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="25" parent="17" name="Author">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="26" parent="17" name="Title">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="17" name="Price">
+      <Position>4</Position>
+      <DataType>float|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="17" name="Publishingdate">
+      <Position>5</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="29" parent="17" name="Salesamount">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="30" parent="17" name="Storenumber">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="17" name="Remark">
+      <Position>8</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="32" parent="17" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="33" parent="18" name="tradeid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="34" parent="18" name="userid">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="18" name="tradetime">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="36" parent="18" name="user_id_fk">
+      <ColNames>userid</ColNames>
+    </index>
+    <key id="37" parent="18" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>tradeid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="38" parent="18" name="user_id_fk">
+      <ColNames>userid</ColNames>
+      <RefSchemaName>bookstore</RefSchemaName>
+      <RefTableName>userinfo</RefTableName>
+      <RefColNames>userid</RefColNames>
+    </foreign-key>
+    <column id="39" parent="19" name="itemid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="40" parent="19" name="bookid">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="41" parent="19" name="quantity">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="42" parent="19" name="tradeid">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="43" parent="19" name="book_id_fk">
+      <ColNames>bookid</ColNames>
+    </index>
+    <index id="44" parent="19" name="trade_id_fk">
+      <ColNames>tradeid</ColNames>
+    </index>
+    <key id="45" parent="19" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>itemid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="46" parent="19" name="book_id_fk">
+      <ColNames>bookid</ColNames>
+      <RefSchemaName>bookstore</RefSchemaName>
+      <RefTableName>mybooks</RefTableName>
+      <RefColNames>Id</RefColNames>
+    </foreign-key>
+    <foreign-key id="47" parent="19" name="trade_id_fk">
+      <ColNames>tradeid</ColNames>
+      <RefSchemaName>bookstore</RefSchemaName>
+      <RefTableName>trade</RefTableName>
+      <RefColNames>tradeid</RefColNames>
+    </foreign-key>
+    <column id="48" parent="20" name="userid">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="49" parent="20" name="username">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="50" parent="20" name="accountid">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="51" parent="20" name="account_id_fk">
+      <ColNames>accountid</ColNames>
+    </index>
+    <key id="52" parent="20" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>userid</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="53" parent="20" name="account_id_fk">
+      <ColNames>accountid</ColNames>
+      <RefSchemaName>bookstore</RefSchemaName>
+      <RefTableName>account</RefTableName>
+      <RefColNames>accountid</RefColNames>
+    </foreign-key>
+  </database-model>
+</dataSource>

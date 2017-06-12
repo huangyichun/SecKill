@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SecKill.iml" filepath="$PROJECT_DIR$/.idea/modules/SecKill.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SecKill_main.iml" filepath="$PROJECT_DIR$/.idea/modules/SecKill_main.iml" group="SecKill" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SecKill_test.iml" filepath="$PROJECT_DIR$/.idea/modules/SecKill_test.iml" group="SecKill" />
+    </modules>
+  </component>
+</project>
