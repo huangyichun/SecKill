@@ -5,7 +5,7 @@
 <mapper namespace="com.seckill.dao.SuccessKilledDao">
 
     <insert id="insertSuccessKilled">
-#         主键冲突，不报错
+#         主键冲突，使用IGNORE不报错
         INSERT IGNORE INTO success_killed(seckill_id, user_phone)
                 VALUES (#{seckillId}, #{userPhone});
     </insert>
