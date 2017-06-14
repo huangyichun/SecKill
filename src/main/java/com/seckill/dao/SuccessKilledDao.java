@@ -1,6 +1,7 @@
 package com.seckill.dao;
 
 import com.seckill.mode.SuccessKilled;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * SuccessKillDao
@@ -9,18 +10,19 @@ public interface SuccessKilledDao {
 
     /**
      * 插入购买明细，可过滤重复
-     * @param seckilled
+     * @param seckillId
      * @param userPhone
-     * @return 插入的结果集数量
+     * @return
      */
-    int insertSuccessKilled(long seckilled, long userPhone);
+    int insertSuccessKilled(@Param("seckillId") long seckillId, @Param("userPhone") long userPhone);
 
     /**
      * 根据id查询SuccessKilled并携带秒杀产品对象实体
-     * @param seckill
+     * @param seckillId
+     * @param userPhonel
      * @return
      */
-    SuccessKilled queryByIdWithSeckill(long seckill);
+    SuccessKilled queryByIdWithSeckill(@Param("seckillId") long seckillId, @Param("userPhone") long userPhonel);
 
 
 }
