@@ -2,6 +2,7 @@ package com.seckill.service;
 
 import com.seckill.dto.Exposer;
 import com.seckill.dto.SeckillExecution;
+import com.seckill.exception.SeckillException;
 import com.seckill.mode.Seckill;
 import com.seckill.mode.SuccessKilled;
 import org.junit.Test;
@@ -28,6 +29,7 @@ public class SeckillServiceImplTest {
     @Autowired
     private SeckillService seckillService;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Test
     public void getSeckillList() throws Exception {
         List<Seckill> list = seckillService.getSeckillList();
@@ -45,28 +47,27 @@ public class SeckillServiceImplTest {
     public void exportSeckillUrl() throws Exception {
         long id = 1000;
         Exposer exposer = seckillService.exportSeckillUrl(id);
-        logger.info("exposer={}", exposer);
+        if (exposer.isExposed()) {
+            long phone = 15502456523L;
+            logger.info("exposer={}", exposer);
+            String md5 = exposer.getMd5();
+            SeckillExecution seckillExecution = null;
+            try {
+                seckillExecution = seckillService.executeSeckill(id, phone, md5);
+                logger.info("seckillExecution={}", seckillExecution);
+
+            } catch (SeckillException e) {
+                logger.info("e={}", e);
+            }
+        }else {
+            //秒杀未开启
+            logger.warn("exposer={}",exposer);
+        }
+
         //exposer=Exposer{exposed=true,
         // md5='27de6336ee4dfce903d6af422686a1b7',
         // seckillId=1000, now=0, start=0, end=0}
 
-    }
-
-    @Test
-    public void executeSeckill() throws Exception {
-        long id = 1000;
-        long phone = 15502456521L;
-        String md5 = "27de6336ee4dfce903d6af422686a1b7";
-
-
-        SeckillExecution seckillExecution = seckillService.executeSeckill(id, phone, md5);
-        logger.info("seckillExecution={}", seckillExecution);
-        //SeckillExecution{seckillId=1000,
-        // state=1, stateInfo='秒杀成功',
-        // successKilled=SuccessKilled{seckillId=1000,
-        // userPhone=15502456521,
-        // state=0,
-        // createTime=Mon Jun 19 09:49:18 CST 2017}}
     }
 
 }
