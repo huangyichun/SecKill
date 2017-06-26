@@ -43,9 +43,13 @@ public class SeckillServiceImplTest {
         logger.info("seckill={}", seckill);
     }
 
+    /**
+     * 集成测试代码完整逻辑，注意可重复执行。
+     * @throws Exception
+     */
     @Test
     public void exportSeckillUrl() throws Exception {
-        long id = 1000;
+        long id = 1001;
         Exposer exposer = seckillService.exportSeckillUrl(id);
         if (exposer.isExposed()) {
             long phone = 15502456523L;
