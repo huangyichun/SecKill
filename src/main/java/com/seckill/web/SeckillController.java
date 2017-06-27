@@ -6,10 +6,8 @@ import com.seckill.dto.SeckillResult;
 import com.seckill.enums.SeckillStateEnum;
 import com.seckill.exception.RepeatKillException;
 import com.seckill.exception.SeckillCloseException;
-import com.seckill.exception.SeckillException;
 import com.seckill.mode.Seckill;
 import com.seckill.service.SeckillService;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +36,7 @@ public class SeckillController {
      * @param model 视图
      * @return
      */
-    @RequestMapping(name = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         // list.jsp + model = modelAndView
         List<Seckill> list = seckillService.getSeckillList();
@@ -114,24 +112,25 @@ public class SeckillController {
         } catch (RepeatKillException e) {
             SeckillExecution execution = new SeckillExecution(seckillId,
                     SeckillStateEnum.REPEAT_KILL);
-            return new SeckillResult<SeckillExecution>(false, execution);
-            //TODO
+            return new SeckillResult<SeckillExecution>(true, execution);
         } catch (SeckillCloseException e) {
             SeckillExecution execution = new SeckillExecution(seckillId,
                     SeckillStateEnum.END);
-            return new SeckillResult<SeckillExecution>(false, execution);
+            return new SeckillResult<SeckillExecution>(true, execution);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             SeckillExecution execution = new SeckillExecution(seckillId,
                     SeckillStateEnum.INNER_ERROR);
-            return new SeckillResult<SeckillExecution>(false, execution);
+            return new SeckillResult<SeckillExecution>(true, execution);
         }
     }
 
-    @RequestMapping(value = "/time/now", method = RequestMethod.GET)
+    @RequestMapping(value = "/time/now", method = RequestMethod.GET,
+            produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
     public SeckillResult<Long> time() {
         Date now = new Date();
-        return new SeckillResult(true, now.getTime());
+        return new SeckillResult<Long>(true, now.getTime());
     }
 
 }
