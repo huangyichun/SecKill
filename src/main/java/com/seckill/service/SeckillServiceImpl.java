@@ -2,6 +2,7 @@ package com.seckill.service;
 
 import com.seckill.dao.SeckillDao;
 import com.seckill.dao.SuccessKilledDao;
+import com.seckill.dao.cache.RedisDao;
 import com.seckill.dto.Exposer;
 import com.seckill.dto.SeckillExecution;
 import com.seckill.enums.SeckillStateEnum;
@@ -36,6 +37,8 @@ public class SeckillServiceImpl implements SeckillService {
     @Autowired
     private SuccessKilledDao successKilledDao;
 
+    @Autowired
+    private RedisDao redisDao;
     //md5盐值字符串，用于混淆MD%
     private final String slat = "!WQWEWeigower2323jwoe9@(#*#34";
 
@@ -51,10 +54,27 @@ public class SeckillServiceImpl implements SeckillService {
 
     @Override
     public Exposer exportSeckillUrl(long seckillId) {
-        Seckill seckill = seckillDao.queryById(seckillId);
+        //优化点:缓存优化，一致性维护在超时的基础上
+        //1.访问redis
+        Seckill seckill = redisDao.getSeckill(seckillId);
         if (seckill == null) {
-            return new Exposer(false, seckillId);
+            //2.访问数据库
+            seckill = seckillDao.queryById(seckillId);
+            if (seckill == null) {
+                return new Exposer(false, seckillId);
+            }else {
+                //3.放入redis
+                redisDao.putSeckill(seckill);
+            }
         }
+        /**
+         * get from cache
+         * if null
+         *  get db
+         *else
+         *  put cache
+         * locgoin
+         */
         Date starTime = seckill.getStartTime();
         Date endTime = seckill.getEndTime();
         //系统时间
@@ -63,7 +83,7 @@ public class SeckillServiceImpl implements SeckillService {
             return new Exposer(seckillId, false, now.getTime(), starTime.getTime(), endTime.getTime());
         }
         //转换特定字符串的过程，不可逆
-        String md5 = getMD5(seckillId); //TODO
+        String md5 = getMD5(seckillId);
         return new Exposer(true, md5, seckillId);
     }
 
